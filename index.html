@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+  <title>Frontend Mentor | Contact form</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+
+    body{
+      height: 150vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 30px;
+      font-family: "Karla", sans-serif;
+      background-color: hsl(148, 38%, 91%);
+    }
+    .container{
+      background-color: white;
+      border-radius: 10px;
+      padding: 2.5em;
+      box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.1);
+      width: 550px;
+    }
+    span{
+      color: hsl(169, 82%, 27%);
+    }
+    input{
+      border-radius: 8px;
+      padding: 8px;
+      border: 1px solid;
+    }
+    input[type=text]{
+      padding: 15px;
+    }
+    input[name=email]{
+      padding: 15px;
+    }
+    label{
+      font-size: 16px;
+    }
+    .radio{
+      display: flex;
+      gap: 15px;
+    }
+    .radiobtn{
+      border: 1px solid;
+      padding: 10px;
+      padding-left: 20px;
+      border-radius: 8px;
+      
+      width: 47%;
+    }
+    textarea{
+      resize: none;
+      border-radius: 8px;
+      height: 90px;
+      padding: 10px;
+      border: 1px solid ;
+    }
+
+    .name{
+      display: flex;
+      gap: 10px;
+    }.n{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 10px;
+    }.cons{
+      display: flex;
+      flex-direction: column;
+    }.cons div{
+      display: flex;
+      gap: 10px;
+      
+    }
+    h1{
+      margin: 0;
+      padding-bottom: 30px;
+    }
+    input[type=submit]{
+      width: 100%;
+      font-family: "Karla", sans-serif;
+      background-color: hsl(169, 82%, 27%);
+      border: none;
+      color: white;
+      padding: 15px;
+    }input[type=submit]:hover{
+      background-color: hsl(187, 24%, 22%);
+    }
+    .errorfn{
+      color: red;
+    }
+    .error-border{
+      border: 1px solid red;
+    }
+    .errorEmail{
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Contact Us</h1>
+
+  <form class="myForm">
+    <div class="name ">
+      <div class="First n">
+        <label for="fname">First Name <span>*</span></label>
+        <input type="text" name="fname" id="fname" class="fn">
+        <div class="errorfn"></div>
+      </div>
+      <div class="last n">
+        <label for="lname">Last Name <span>*</span></label>
+        <input type="text" name="lname" id="lname" class="fn">
+        <div class="errorfn"></div>
+      </div>
+    </div>
+    <br>
+    <div class="email n">
+      <label for="email">Email Address <span>*</span></label>
+      <input type="email" name="email" id="email">
+      <div class="errorEmail"></div>
+      <div class="emailReq"></div>
+    </div>
+    <br>
+    <div class="query n">
+      <label for="radio">Query Type <span>*</span></label>
+      <div class="radio">
+        <div class="radiobtn"><input type="radio" id="generalen" name="ge"><label for="generalen">General Enquiry</label></div>
+        <div class="radiobtn"><input type="radio" id="support" name="supp"><label for="support">Support Request</label></div>
+      </div>
+      Please select a query type
+    </div>
+    <br>
+    <div class="message n">
+      <label for="message">Message <span>*</span></label>
+      <textarea name="" id="message" class="fn"></textarea>
+      <div class="errorfn"></div>
+    </div>
+    <br>
+    <div class="cons">
+      <div><input type="checkbox" id="consent" name="consent"><label for="consent">  I consent to being contacted by the team <span>*</span></label></div><br>
+      To submit this form, please consent to being contacted 
+    </div>
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+
+</div>
+
+<script>
+  const form = document.querySelector('.myForm')
+  const nameInput = document.querySelectorAll(".fn")
+  const errorName = document.querySelectorAll(".errorfn")
+
+  const email = document.getElementById("email");
+  const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailError = document.querySelector('.errorEmail')
+  const emailReq = document.querySelector('.emailreq')
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    nameInput.forEach((input, index) => {
+      if(input.value.trim() === ""){
+        errorName[index].textContent = "This field is required";
+        input.classList.add("error-border");
+      }else{
+        errorName[index].textContent = "";
+        input.classList.remove("error-border");
+      }  
+    });
+    if(!emailCheck.test(email.value.trim())){
+      emailError.textContent = "Please enter a valid email address";
+      email.classList.add("error-border");
+    }else if(email.value.trim() === "") {
+      emailReq.textContent = "This field is required";
+    }else{
+      email.classList.remove("error-border");
+    }
+  });
+</script>
+  Message Sent!
+  Thanks for completing the form. We'll be in touch soon!
+  
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+</body>
+</html> 
